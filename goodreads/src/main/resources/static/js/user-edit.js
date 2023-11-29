@@ -6,7 +6,7 @@ const onSubmit = async (e) => {
   e.preventDefault();
 
   try {
-    await axios.patch("", {
+    await axios.patch("/user", {
       username: usernameInput.value,
       password: passwordInput.value,
     });
@@ -18,3 +18,11 @@ const onSubmit = async (e) => {
 };
 
 editUserForm.addEventListener("submit", onSubmit);
+
+const deleteUser = async () => {
+  try {
+    await axios.delete("/user/1");
+  } catch (err) {
+    console.error(err);
+  }
+};
