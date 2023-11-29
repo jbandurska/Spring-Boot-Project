@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Goodreads | Home</title>
+  </head>
+  <body>
+    <h1>Home</h1>
+    <h2>Welcome home <span th:text="${username}">user</span>!</h2>
+    <section class="links">
+      <a href="/user/edit">Edit your profile</a>
+      <a href="">Manage your bookshelves</a>
+      <a href="">Search books</a>
+    </section>
+  </body>
+</html>

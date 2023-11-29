@@ -2,12 +2,9 @@ package project.goodreads.services;
 
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import project.goodreads.models.Book;
 import project.goodreads.models.User;
-import project.goodreads.repositories.BookRepository;
 import project.goodreads.repositories.UserRepository;
 
 @Service
@@ -16,18 +13,17 @@ import project.goodreads.repositories.UserRepository;
 public class UserService {
 
     final private UserRepository userRepository;
-    final private BookRepository bookRepository;
 
-    public void addBookToUserShelf(Long userId, Long bookId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " +
-                        userId));
+    public void updateUser(String username, String password) {
 
-        Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " +
-                        bookId));
+        User user = userRepository.findById(Long.valueOf(1)).get();
 
-        user.getBookShelf().add(book);
+        if (username != null)
+            user.setUsername(username);
+        if (password != null)
+            user.setPassword(password);
+
         userRepository.save(user);
     }
+
 }

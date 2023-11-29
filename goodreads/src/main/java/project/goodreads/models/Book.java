@@ -20,8 +20,9 @@ public class Book {
     private Long id;
 
     private String title;
+    private String author;
 
-    @ManyToMany(mappedBy = "bookShelf")
-    private Set<User> hasOnShelf;
+    @ManyToMany(mappedBy = "books")
+    private Set<Bookshelf> onShelf;
 
 }

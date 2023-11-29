@@ -7,8 +7,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import project.goodreads.models.User;
 import project.goodreads.repositories.BookRepository;
+import project.goodreads.repositories.BookshelfRepository;
 import project.goodreads.repositories.UserRepository;
+import project.goodreads.services.BookshelfService;
 import project.goodreads.services.UserService;
 
 @SpringBootApplication
@@ -19,15 +22,14 @@ public class GoodreadsApplication {
 		SpringApplication.run(GoodreadsApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner check(UserService userService, UserRepository userRepository,
-			BookRepository bookRepository) {
-		return args -> {
-			logger.info("COMMAND LINE RUNNER");
+	// @Bean
+	// public CommandLineRunner check(UserService userService, UserRepository
+	// userRepository,
+	// BookRepository bookRepository, BookshelfService bookshelfService) {
+	// return args -> {
+	// logger.info("COMMAND LINE RUNNER");
 
-			userService.addBookToUserShelf(Long.valueOf(1), Long.valueOf(2));
-
-		};
-	}
+	// };
+	// }
 
 }
