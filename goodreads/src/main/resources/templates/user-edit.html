@@ -4,14 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Goodreads | Edit Profile</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <h1>Edit Profile</h1>
 
-    <form action="/user/edit" method="post">
-      Username <input type="text" name="username" /> <br />
-      Password <input type="password" name="password" /> <br />
+    <form id="edit-user-form">
+      Username <input type="text" id="username-input" name="username" /> <br />
+      Password <input type="password" id="password-input" name="password" />
+      <br />
       <button type="submit">Submit</button>
     </form>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/user-edit.js}"></script>
   </body>
 </html>

@@ -2,11 +2,13 @@ package project.goodreads.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
+import project.goodreads.dto.UserDto;
 import project.goodreads.services.UserService;
 
 @Controller
@@ -22,12 +24,10 @@ public class UserController {
         return "user-edit.html";
     }
 
-    @PostMapping("/edit")
-    public String postEdit(@RequestParam(required = false) String username,
-            @RequestParam(required = false) String password) {
+    @ResponseBody
+    @PatchMapping("/edit")
+    public void patchEdit(@RequestBody UserDto userDto) {
 
-        userService.updateUser(username, password);
-
-        return "redirect:/home";
+        userService.updateUser(userDto.getUsername(), userDto.getPassword());
     }
 }
