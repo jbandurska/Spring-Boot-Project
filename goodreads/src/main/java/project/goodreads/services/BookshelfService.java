@@ -1,5 +1,7 @@
 package project.goodreads.services;
 
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -35,6 +37,11 @@ public class BookshelfService {
 
         bookshelf.getBooks().add(book);
         bookshelfRepository.save(bookshelf);
+    }
+
+    public Set<Bookshelf> getBookshelves(Long userId) {
+
+        return bookshelfRepository.findAllBookshelvesByUserId(userId);
     }
 
 }
