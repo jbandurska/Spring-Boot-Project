@@ -2,6 +2,7 @@ body {
   background-color: #eee;
   font-family: sans-serif;
   line-height: 1.15;
+  padding: 20px 100px;
 }
 
 .go-back-btn {

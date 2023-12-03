@@ -4,9 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Goodreads | Bookshelves</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+      crossorigin="anonymous"
+    />
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
   </head>
   <body>
+    <a class="btn btn-lg go-back-btn btn-primary" href="/">&lt;</a>
+
     <h1>Your bookshelves</h1>
 
     <table>
@@ -14,5 +22,11 @@
         <td th:text="${bookshelf.name}" />
       </tr>
     </table>
+
+    <form method="post" action="/bookshelves">
+      <h2>Add new bookshelf</h2>
+      <input type="text" name="name" placeholder="Name" />
+      <button type="submit">Add</button>
+    </form>
   </body>
 </html>
