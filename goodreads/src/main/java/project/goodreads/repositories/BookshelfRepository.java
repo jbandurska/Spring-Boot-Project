@@ -11,5 +11,5 @@ import project.goodreads.models.Bookshelf;
 public interface BookshelfRepository extends JpaRepository<Bookshelf, Long> {
 
     @Query("SELECT b FROM Bookshelf b WHERE b.userId = :userId")
-    public Set<Bookshelf> findAllBookshelvesByUserId(@Param("userId") Long userId);
+    Set<Bookshelf> findAllBookshelvesByUserId(@Param("userId") Long userId);
 }
