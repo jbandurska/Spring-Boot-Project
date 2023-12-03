@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import project.goodreads.enums.Role;
+import project.goodreads.exceptions.UserAlreadyExistException;
 import project.goodreads.models.User;
 import project.goodreads.repositories.UserRepository;
 
@@ -19,6 +20,10 @@ public class UserService {
 
     public void createUser(String username, String password) {
 
+        if (usernameExist(username)) {
+            throw new UserAlreadyExistException("User with this username already exists: " + username);
+        }
+
         User user = new User();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
@@ -27,20 +32,23 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void updateUser(String username, String password) {
+    private boolean usernameExist(String username) {
 
-        User user = userRepository.findById(Long.valueOf(1)).get();
+        return userRepository.findByUsername(username).isPresent();
+    }
 
-        if (username != null)
+    public void updateUser(User user, String username, String password) {
+
+        if (username != null && !username.isEmpty())
             user.setUsername(username);
-        if (password != null)
-            user.setPassword(password);
+        if (password != null && !password.isEmpty())
+            user.setPassword(passwordEncoder.encode(password));
 
         userRepository.save(user);
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(User user) {
 
-        userRepository.deleteById(id);
+        userRepository.delete(user);
     }
 }
