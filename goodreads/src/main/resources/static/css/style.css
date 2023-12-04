@@ -12,3 +12,7 @@ body {
   top: 10px;
   left: 10px;
 }
+
+td {
+  padding: 5px;
+}

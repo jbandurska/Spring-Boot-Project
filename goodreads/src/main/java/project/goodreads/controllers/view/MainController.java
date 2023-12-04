@@ -37,6 +37,12 @@ public class MainController {
         return "home";
     }
 
+    @GetMapping("/search")
+    public String searchForm() {
+
+        return "search";
+    }
+
     @GetMapping("/register")
     public String registerForm() {
 

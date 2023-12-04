@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Goodreads | Bookshelf</title>
+    <title>Goodreads | Books</title>
     <link
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,27 +13,16 @@
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <a class="btn btn-lg go-back-btn btn-primary" href="/bookshelves">&lt;</a>
+    <a class="btn btn-lg go-back-btn btn-primary" href="/search">&lt;</a>
 
-    <h1 th:text="${bookshelf.name}">Bookshelf</h1>
+    <h1>Books matching <span th:text="${key}"></span></h1>
 
     <table>
       <tr th:each="book: ${books}">
         <td th:text="${book.title}" />
         <td th:text="${book.author}" />
-        <td>
-          <button
-            th:onclick="deleteBookById([[${book.id}]], [[${bookshelf.id}]])"
-          >
-            delete
-          </button>
-        </td>
+        <td><a th:href="@{/books/{id}(id=${book.id})}">Show</a></td>
       </tr>
     </table>
-
-    <a href="/search">Search for more books to add to your shelf!</a>
-
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/bookshelf.js}"></script>
   </body>
 </html>

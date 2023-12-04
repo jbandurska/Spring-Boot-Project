@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Goodreads | Bookshelves</title>
+    <title>Goodreads | Book</title>
     <link
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,21 +13,24 @@
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <a class="btn btn-lg go-back-btn btn-primary" href="/home">&lt;</a>
+    <a class="btn btn-lg go-back-btn btn-primary" href="/search">&lt;</a>
 
-    <h1>Your bookshelves</h1>
+    <h1 th:text="${book.title}"></h1>
+    <h3 th:text="${book.author}"></h3>
 
-    <table>
-      <tr th:each="bookshelf: ${bookshelves}">
-        <td th:text="${bookshelf.name}" />
-        <td><a th:href="@{/bookshelves/{id}(id=${bookshelf.id})}">Show</a></td>
-      </tr>
-    </table>
-
-    <form method="post" action="/bookshelves">
-      <h2>Add new bookshelf</h2>
-      <input type="text" name="name" placeholder="Name" />
+    <form method="post" action="/books">
+      <h4>Add book to bookshelf</h4>
+      <input type="text" name="bookId" th:value="${book.id}" hidden />
+      <select name="bookshelfId">
+        <option
+          th:each="bookshelf : ${bookshelvesWithoutBook}"
+          th:value="${bookshelf.id}"
+          th:text="${bookshelf.name}"
+        ></option>
+      </select>
       <button type="submit">Add</button>
+
+      <p th:text="${message}"></p>
     </form>
   </body>
 </html>

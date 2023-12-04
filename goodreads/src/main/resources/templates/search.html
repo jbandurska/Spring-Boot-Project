@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Goodreads | Edit Profile</title>
+    <title>Goodreads | Search</title>
     <link
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
       rel="stylesheet"
@@ -15,18 +15,11 @@
   <body>
     <a class="btn btn-lg go-back-btn btn-primary" href="/home">&lt;</a>
 
-    <h1>Edit Profile</h1>
+    <h1>Search</h1>
 
-    <form id="edit-user-form">
-      Username <input type="text" id="username-input" name="username" /> <br />
-      Password <input type="password" id="password-input" name="password" />
-      <br />
-      <button type="submit">Submit</button>
+    <form method="get" action="/books">
+      <input type="text" name="key" placeholder="Search..." />
+      <button type="submit">Search</button>
     </form>
-
-    <button type="button" onclick="deleteUser()">Delete user</button>
-
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/user-edit.js}"></script>
   </body>
 </html>

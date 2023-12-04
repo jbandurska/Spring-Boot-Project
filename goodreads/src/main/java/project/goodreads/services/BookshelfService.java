@@ -1,5 +1,6 @@
 package project.goodreads.services;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -53,6 +54,27 @@ public class BookshelfService {
     public Set<Bookshelf> getBookshelves(Long userId) {
 
         return bookshelfRepository.findAllBookshelvesByUserId(userId);
+    }
+
+    public Set<Bookshelf> getBookshelvesWithoutBook(Long userId, Long bookId) {
+        var bookshelves = bookshelfRepository.findAllBookshelvesByUserId(userId);
+
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException("Book with id " + bookId + " not found."));
+
+        var bookshelvesWithoutBook = new HashSet<Bookshelf>();
+
+        for (Bookshelf bookshelf : bookshelves) {
+            if (!isBookOnShelf(bookshelf, book))
+                bookshelvesWithoutBook.add(bookshelf);
+        }
+
+        return bookshelvesWithoutBook;
+    }
+
+    private boolean isBookOnShelf(Bookshelf bookshelf, Book book) {
+
+        return bookshelf.getBooks().contains(book);
     }
 
     public Bookshelf getBookshelfById(Long bookshelfId) {
