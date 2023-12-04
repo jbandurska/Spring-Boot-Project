@@ -44,4 +44,10 @@ public class BookshelfService {
         return bookshelfRepository.findAllBookshelvesByUserId(userId);
     }
 
+    public Bookshelf getBookshelfById(Long bookshelfId) {
+
+        return bookshelfRepository.findById(bookshelfId)
+                .orElseThrow(() -> new EntityNotFoundException("Bookshelf with id " + bookshelfId + " not found."));
+    }
+
 }

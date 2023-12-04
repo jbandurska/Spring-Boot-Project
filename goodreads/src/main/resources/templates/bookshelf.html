@@ -13,21 +13,17 @@
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <a class="btn btn-lg go-back-btn btn-primary" href="/">&lt;</a>
+    <a class="btn btn-lg go-back-btn btn-primary" href="/bookshelves">&lt;</a>
 
-    <h1>Your bookshelves</h1>
+    <h1 th:text="${bookshelf.name}">Bookshelf</h1>
 
     <table>
-      <tr th:each="bookshelf: ${bookshelves}">
-        <td th:text="${bookshelf.name}" />
-        <td><a th:href="@{/bookshelves/{id}(id=${bookshelf.id})}">Show</a></td>
+      <tr th:each="book: ${books}">
+        <td th:text="${book.title}" />
+        <td th:text="${book.author}" />
       </tr>
     </table>
 
-    <form method="post" action="/bookshelves">
-      <h2>Add new bookshelf</h2>
-      <input type="text" name="name" placeholder="Name" />
-      <button type="submit">Add</button>
-    </form>
+    <a href="/search">Search for more books to add to your shelf!</a>
   </body>
 </html>
