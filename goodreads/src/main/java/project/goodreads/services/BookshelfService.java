@@ -39,6 +39,17 @@ public class BookshelfService {
         bookshelfRepository.save(bookshelf);
     }
 
+    public void deleteBookFromBookshelf(Long bookshelfId, Long bookId) {
+        Bookshelf bookshelf = bookshelfRepository.findById(bookshelfId)
+                .orElseThrow(() -> new EntityNotFoundException("Bookshelf with id " + bookshelfId + " not found."));
+
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException("Book with id " + bookId + " not found."));
+
+        bookshelf.getBooks().remove(book);
+        bookshelfRepository.save(bookshelf);
+    }
+
     public Set<Bookshelf> getBookshelves(Long userId) {
 
         return bookshelfRepository.findAllBookshelvesByUserId(userId);

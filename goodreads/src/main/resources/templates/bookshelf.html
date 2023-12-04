@@ -21,9 +21,19 @@
       <tr th:each="book: ${books}">
         <td th:text="${book.title}" />
         <td th:text="${book.author}" />
+        <td>
+          <button
+            th:onclick="deleteBookById([[${book.id}]], [[${bookshelf.id}]])"
+          >
+            delete
+          </button>
+        </td>
       </tr>
     </table>
 
     <a href="/search">Search for more books to add to your shelf!</a>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/bookshelf.js}"></script>
   </body>
 </html>
