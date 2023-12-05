@@ -18,31 +18,58 @@
     <h1 th:text="${book.title}"></h1>
     <h3 th:text="${book.author}"></h3>
 
-    <form th:unless="${bookshelves.isEmpty()}" method="post" action="/books">
-      <h4>Add book to bookshelf</h4>
-      <input type="text" name="bookId" th:value="${book.id}" hidden />
-      <select name="bookshelfId">
-        <option
-          th:each="bookshelf : ${bookshelves}"
-          th:value="${bookshelf.id}"
-          th:text="${bookshelf.name}"
-        ></option>
-      </select>
-      <button class="btn btn-primary" type="submit">Add</button>
-    </form>
+    <section>
+      <form th:unless="${bookshelves.isEmpty()}" method="post" action="/books">
+        <h4>Add book to bookshelf</h4>
+        <input type="text" name="bookId" th:value="${book.id}" hidden />
+        <select name="bookshelfId">
+          <option
+            th:each="bookshelf : ${bookshelves}"
+            th:value="${bookshelf.id}"
+            th:text="${bookshelf.name}"
+          ></option>
+        </select>
+        <button class="btn btn-primary" type="submit">Add</button>
+      </form>
 
-    <form th:if="${read}" method="post" action="/books">
-      <input type="text" name="bookId" th:value="${book.id}" hidden />
-      <input type="text" name="bookshelfId" th:value="${read.id}" hidden />
-      <button class="btn" type="submit">I've read the book</button>
-    </form>
+      <form th:if="${read}" method="post" action="/books">
+        <input type="text" name="bookId" th:value="${book.id}" hidden />
+        <input type="text" name="bookshelfId" th:value="${read.id}" hidden />
+        <button class="btn" type="submit">I've read the book</button>
+      </form>
 
-    <form th:if="${tbr}" method="post" action="/books">
-      <input type="text" name="bookId" th:value="${book.id}" hidden />
-      <input type="text" name="bookshelfId" th:value="${tbr.id}" hidden />
-      <button class="btn" type="submit">I want to read the book</button>
-    </form>
+      <form th:if="${tbr}" method="post" action="/books">
+        <input type="text" name="bookId" th:value="${book.id}" hidden />
+        <input type="text" name="bookshelfId" th:value="${tbr.id}" hidden />
+        <button class="btn" type="submit">I want to read the book</button>
+      </form>
 
-    <p th:text="${message}"></p>
+      <p th:text="${message}"></p>
+    </section>
+
+    <section>
+      <form method="post" action="/review/rating">
+        <h4>Rate book</h4>
+        <input type="text" name="bookId" th:value="${book.id}" hidden />
+        <select name="stars" required>
+          <option value="" disabled selected>Select a rating</option>
+          <option value="1.0">1</option>
+          <option value="1.5">1.5</option>
+          <option value="2.0">2</option>
+          <option value="2.5">2.5</option>
+          <option value="3.0">3</option>
+          <option value="3.5">3.5</option>
+          <option value="4.0">4</option>
+          <option value="4.5">4.5</option>
+          <option value="5.0">5</option>
+        </select>
+        <button class="btn btn-primary" type="submit">Rate</button>
+      </form>
+    </section>
+
+    <section>
+      <p>Rating <span th:text="${rating}"></span></p>
+      <h3>Comments</h3>
+    </section>
   </body>
 </html>

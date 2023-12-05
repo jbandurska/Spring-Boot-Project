@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import lombok.Data;
 import project.goodreads.models.Bookshelf;
 import project.goodreads.models.User;
+import project.goodreads.repositories.RatingRepository;
 import project.goodreads.services.BookService;
 import project.goodreads.services.BookshelfService;
 
@@ -19,6 +20,7 @@ public class UserModelProcessor {
 
     private final BookService bookService;
     private final BookshelfService bookshelfService;
+    private final RatingRepository ratingRepository;
 
     private User user;
 
@@ -46,6 +48,7 @@ public class UserModelProcessor {
 
         model.addAttribute("bookshelves", filteredBookshelves);
         model.addAttribute("book", book);
+        model.addAttribute("rating", ratingRepository.getAverageRatingByBookId(bookId));
         model.addAttribute("message", message);
     }
 }
