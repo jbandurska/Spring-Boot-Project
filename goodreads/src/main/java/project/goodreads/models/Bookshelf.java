@@ -24,6 +24,7 @@ public class Bookshelf {
 
     private String name;
     private Long userId;
+    private boolean isHidden;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "book_bookshelf", joinColumns = @JoinColumn(name = "bookshelf_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))

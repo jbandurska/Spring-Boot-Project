@@ -22,9 +22,15 @@ public class BookshelfService {
     final BookRepository bookRepository;
 
     public void createBookshelf(String name, Long userId) {
+        createBookshelf(name, userId, false);
+    }
+
+    public void createBookshelf(String name, Long userId, boolean isHidden) {
         Bookshelf bookshelf = new Bookshelf();
+
         bookshelf.setName(name);
         bookshelf.setUserId(userId);
+        bookshelf.setHidden(isHidden);
 
         bookshelfRepository.save(bookshelf);
     }

@@ -10,9 +10,14 @@ services:
       MYSQL_DATABASE: goodreads
       MYSQL_USER: user
       MYSQL_PASSWORD: user
+    volumes:
+      - goodreads-volume:/var/lib/mysql
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+
+volumes:
+  goodreads-volume:

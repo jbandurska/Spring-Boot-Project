@@ -17,6 +17,7 @@ public class UserService {
 
     final private UserRepository userRepository;
     final private PasswordEncoder passwordEncoder;
+    final private BookshelfService bookshelfService;
 
     public void createUser(String username, String password) {
 
@@ -30,6 +31,9 @@ public class UserService {
         user.setRole(Role.USER);
 
         userRepository.save(user);
+
+        bookshelfService.createBookshelf("read", user.getId(), true);
+        bookshelfService.createBookshelf("to be read", user.getId(), true);
     }
 
     private boolean usernameExist(String username) {

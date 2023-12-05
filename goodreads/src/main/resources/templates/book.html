@@ -18,19 +18,31 @@
     <h1 th:text="${book.title}"></h1>
     <h3 th:text="${book.author}"></h3>
 
-    <form method="post" action="/books">
+    <form th:unless="${bookshelves.isEmpty()}" method="post" action="/books">
       <h4>Add book to bookshelf</h4>
       <input type="text" name="bookId" th:value="${book.id}" hidden />
       <select name="bookshelfId">
         <option
-          th:each="bookshelf : ${bookshelvesWithoutBook}"
+          th:each="bookshelf : ${bookshelves}"
           th:value="${bookshelf.id}"
           th:text="${bookshelf.name}"
         ></option>
       </select>
-      <button type="submit">Add</button>
-
-      <p th:text="${message}"></p>
+      <button class="btn btn-primary" type="submit">Add</button>
     </form>
+
+    <form th:if="${read}" method="post" action="/books">
+      <input type="text" name="bookId" th:value="${book.id}" hidden />
+      <input type="text" name="bookshelfId" th:value="${read.id}" hidden />
+      <button class="btn" type="submit">I've read the book</button>
+    </form>
+
+    <form th:if="${tbr}" method="post" action="/books">
+      <input type="text" name="bookId" th:value="${book.id}" hidden />
+      <input type="text" name="bookshelfId" th:value="${tbr.id}" hidden />
+      <button class="btn" type="submit">I want to read the book</button>
+    </form>
+
+    <p th:text="${message}"></p>
   </body>
 </html>
