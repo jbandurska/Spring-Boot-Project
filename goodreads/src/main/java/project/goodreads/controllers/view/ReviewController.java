@@ -9,20 +9,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import project.goodreads.models.User;
-import project.goodreads.services.RatingService;
+import project.goodreads.services.ReviewService;
 
 @Controller
 @RequestMapping("/review")
 @RequiredArgsConstructor
 public class ReviewController {
 
-    private final RatingService ratingService;
+    private final ReviewService reviewService;
 
     @PostMapping("/rating")
     public String addRating(@RequestParam Double stars, @RequestParam Long bookId, Authentication authentication,
             HttpServletRequest request) {
 
-        ratingService.addRating(stars, bookId, ((User) authentication.getPrincipal()).getId());
+        reviewService.addRating(stars, bookId, ((User) authentication.getPrincipal()).getId());
+
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
+    }
+
+    @PostMapping("/comment")
+    public String addComment(@RequestParam String content, @RequestParam Long bookId, Authentication authentication,
+            HttpServletRequest request) {
+
+        reviewService.addComment(content, bookId, ((User) authentication.getPrincipal()).getUsername());
 
         String referer = request.getHeader("Referer");
         return "redirect:" + referer;

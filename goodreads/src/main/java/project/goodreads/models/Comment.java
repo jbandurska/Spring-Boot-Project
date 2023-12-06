@@ -16,6 +16,6 @@ public class Comment {
 
     private String content;
     private Long bookId;
-    private Long userId;
+    private String username;
 
 }
