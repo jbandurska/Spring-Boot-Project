@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 
 import lombok.RequiredArgsConstructor;
+import project.goodreads.enums.Role;
 
 @Configuration
 @EnableWebSecurity
@@ -25,6 +26,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/register", "/css/**")
                         .permitAll()
+                        .requestMatchers("/admin", "/api/**")
+                        .hasAuthority(Role.ADMIN.name())
                         .anyRequest()
                         .authenticated())
                 .formLogin(Customizer.withDefaults())

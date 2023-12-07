@@ -32,7 +32,7 @@ public class MainController {
     public String home(Authentication authentication, Model model) {
         User user = (User) authentication.getPrincipal();
 
-        model.addAttribute("username", user.getUsername());
+        model.addAttribute("user", user);
 
         return "home";
     }
