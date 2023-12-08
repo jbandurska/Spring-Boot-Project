@@ -36,10 +36,10 @@ public class BookRestController {
         book.setAuthor(bookDto.getAuthor());
         var createdBook = bookRepository.save(book);
 
-        var responseBook = new BookWithIdDto();
-        BeanUtils.copyProperties(createdBook, responseBook);
+        var response = new BookWithIdDto();
+        BeanUtils.copyProperties(createdBook, response);
 
-        return ResponseEntity.status(201).body(responseBook);
+        return ResponseEntity.status(201).body(response);
     }
 
     @PutMapping("/{id}")
@@ -50,10 +50,10 @@ public class BookRestController {
         book.setAuthor(bookDto.getAuthor());
         bookRepository.save(book);
 
-        var responseBook = new BookWithIdDto();
-        BeanUtils.copyProperties(book, responseBook);
+        var response = new BookWithIdDto();
+        BeanUtils.copyProperties(book, response);
 
-        return ResponseEntity.ok(responseBook);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")

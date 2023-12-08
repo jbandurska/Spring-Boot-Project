@@ -3,6 +3,7 @@ package project.goodreads.services;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import project.goodreads.enums.Role;
@@ -19,7 +20,13 @@ public class UserService {
     final private PasswordEncoder passwordEncoder;
     final private BookshelfService bookshelfService;
 
-    public void createUser(String username, String password) {
+    public User getUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        return user;
+    }
+
+    public User createUser(String username, String password, Role role) {
 
         if (usernameExist(username)) {
             throw new UserAlreadyExistException("User with this username already exists: " + username);
@@ -34,6 +41,13 @@ public class UserService {
 
         bookshelfService.createBookshelf("read", user.getId(), true);
         bookshelfService.createBookshelf("to be read", user.getId(), true);
+
+        return user;
+    }
+
+    public User createUser(String username, String password) {
+
+        return createUser(username, password, Role.USER);
     }
 
     private boolean usernameExist(String username) {
@@ -41,7 +55,7 @@ public class UserService {
         return userRepository.findByUsername(username).isPresent();
     }
 
-    public void updateUser(User user, String username, String password) {
+    public User updateUser(User user, String username, String password) {
 
         if (username != null && !username.isEmpty())
             user.setUsername(username);
@@ -49,10 +63,24 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(password));
 
         userRepository.save(user);
+
+        return user;
+    }
+
+    public User updateUser(User user, String username, String password, Role role) {
+
+        user.setRole(role);
+
+        return updateUser(user, username, password);
     }
 
     public void deleteUser(User user) {
 
         userRepository.delete(user);
+    }
+
+    public void deleteUserById(Long id) {
+
+        userRepository.deleteById(id);
     }
 }
