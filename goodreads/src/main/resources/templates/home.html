@@ -4,19 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Goodreads | Home</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+      crossorigin="anonymous"
+    />
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <h1>Home</h1>
     <h2>Welcome home <span th:text="${user.username}">user</span>!</h2>
 
-    <section class="links">
-      <a href="/edit-profile">Edit your profile</a>
-      <a href="/bookshelves">Manage your bookshelves</a>
-      <a href="/search">Search books</a>
+    <section>
+      <p>You have read <strong th:text="${readStat}"></strong> books!</p>
+      <p>
+        And <strong th:text="${tbrStat}"></strong> books are still waiting to be
+        read.
+      </p>
     </section>
-    <a href="/logout">Log out</a>
-    <br />
-    <a th:if="${user.role.name() == 'ADMIN'}" href="/admin">Admin panel</a>
+
+    <section class="links">
+      <a class="btn btn-lg" href="/edit-profile">Edit your profile</a>
+      <a class="btn btn-lg" href="/bookshelves">Manage your bookshelves</a>
+      <a class="btn btn-lg" href="/search">Search books</a>
+    </section>
+
+    <section>
+      <a class="btn btn-lg" href="/logout">Log out</a>
+      <br />
+      <a class="btn btn-lg" th:if="${user.role.name() == 'ADMIN'}" href="/admin"
+        >Admin panel</a
+      >
+    </section>
   </body>
 </html>

@@ -18,4 +18,7 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
     @Modifying
     public void deleteAllByBookId(@Param("bookId") Long bookId);
 
+    @Query("SELECT COUNT(r) FROM Rating r WHERE r.bookId = :bookId")
+    public Long countByBookId(@Param("bookId") Long bookId);
+
 }

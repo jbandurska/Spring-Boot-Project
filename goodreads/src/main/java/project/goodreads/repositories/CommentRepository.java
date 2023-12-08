@@ -20,4 +20,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Modifying
     public void deleteAllByBookId(@Param("bookId") Long bookId);
 
+    @Query("SELECT COUNT(c) FROM Comment c WHERE c.bookId = :bookId")
+    public Long countByBookId(@Param("bookId") Long bookId);
+
 }
