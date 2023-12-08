@@ -4,15 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Goodreads</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+      crossorigin="anonymous"
+    />
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 0;
+        margin: 0;
+      }
+    </style>
   </head>
   <body>
     <h1>Goodreads</h1>
-    <h2>Welcome to Goodreads!</h2>
-    <p>
-      <a href="/register">Create an account</a>
+    <h2 style="margin-bottom: 40px">Welcome to Goodreads!</h2>
+    <div
+      style="
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      "
+    >
+      <a class="btn btn-lg btn-primary" href="/register">Create an account</a>
       or
-      <a href="/login">Log in</a>!
-    </p>
+      <a class="btn btn-lg btn-primary" href="/login">Log in</a>
+    </div>
   </body>
 </html>

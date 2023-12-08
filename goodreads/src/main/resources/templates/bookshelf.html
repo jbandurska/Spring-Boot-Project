@@ -23,6 +23,7 @@
         <td th:text="${book.author}" />
         <td>
           <button
+            class="btn btn-primary"
             th:onclick="deleteBookById([[${book.id}]], [[${bookshelf.id}]])"
           >
             delete
@@ -31,7 +32,9 @@
       </tr>
     </table>
 
-    <a href="/search">Search for more books to add to your shelf!</a>
+    <a class="btn btn-lg" href="/search"
+      >Search for more books to add to your shelf!</a
+    >
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript" th:src="@{/js/bookshelf.js}"></script>

@@ -18,13 +18,32 @@
     <h1>Edit Profile</h1>
 
     <form id="edit-user-form">
-      Username <input type="text" id="username-input" name="username" /> <br />
-      Password <input type="password" id="password-input" name="password" />
+      Username
+      <input
+        class="form-control"
+        type="text"
+        id="username-input"
+        name="username"
+      />
       <br />
-      <button type="submit">Submit</button>
-    </form>
+      Password
+      <input
+        class="form-control"
+        type="password"
+        id="password-input"
+        name="password"
+      />
+      <br />
+      <button class="btn btn-lg btn-primary" type="submit">Submit</button>
 
-    <button type="button" onclick="deleteUser()">Delete user</button>
+      <button
+        class="btn btn-lg btn-primary"
+        type="button"
+        onclick="deleteUser()"
+      >
+        Delete user
+      </button>
+    </form>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript" th:src="@{/js/user-edit.js}"></script>
