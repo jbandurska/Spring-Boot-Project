@@ -18,6 +18,9 @@ import project.goodreads.dto.BookWithIdDto;
 import project.goodreads.models.Book;
 import project.goodreads.repositories.BookRepository;
 import project.goodreads.services.BookService;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/books")
@@ -27,6 +30,32 @@ public class BookRestController {
 
     private final BookRepository bookRepository;
     private final BookService bookService;
+
+    @GetMapping
+    public List<BookWithIdDto> getAll() {
+
+        List<Book> books = bookRepository.findAll();
+        List<BookWithIdDto> booksDtos = books.stream().map(b -> {
+
+            var bookDto = new BookWithIdDto();
+            BeanUtils.copyProperties(b, bookDto);
+
+            return bookDto;
+        }).toList();
+
+        return booksDtos;
+    }
+
+    @GetMapping("/{id}")
+    public BookWithIdDto getOne(@PathVariable Long id) {
+
+        var book = bookService.getBook(id);
+
+        var bookDto = new BookWithIdDto();
+        BeanUtils.copyProperties(book, bookDto);
+
+        return bookDto;
+    }
 
     @PostMapping
     public ResponseEntity<BookWithIdDto> createBook(@Valid @RequestBody BookDto bookDto) {

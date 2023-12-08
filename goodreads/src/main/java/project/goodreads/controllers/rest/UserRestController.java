@@ -3,6 +3,7 @@ package project.goodreads.controllers.rest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,7 +16,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import project.goodreads.dto.UserDto;
 import project.goodreads.dto.UserWithIdDto;
+import project.goodreads.models.User;
+import project.goodreads.repositories.UserRepository;
 import project.goodreads.services.UserService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -24,6 +29,33 @@ import project.goodreads.services.UserService;
 public class UserRestController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
+
+    @GetMapping
+    public List<UserWithIdDto> getAll() {
+
+        List<User> users = userRepository.findAll();
+        List<UserWithIdDto> userDtos = users.stream().map(u -> {
+
+            var userDto = new UserWithIdDto();
+            BeanUtils.copyProperties(u, userDto);
+
+            return userDto;
+        }).toList();
+
+        return userDtos;
+    }
+
+    @GetMapping("/{id}")
+    public UserWithIdDto getOne(@PathVariable Long id) {
+
+        var user = userService.getUser(id);
+
+        var userDto = new UserWithIdDto();
+        BeanUtils.copyProperties(user, userDto);
+
+        return userDto;
+    }
 
     @PostMapping
     public ResponseEntity<UserWithIdDto> createUser(@Valid @RequestBody UserDto userDto) {

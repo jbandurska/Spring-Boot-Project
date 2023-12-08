@@ -1,8 +1,11 @@
 package project.goodreads.controllers.rest;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,6 +18,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import project.goodreads.dto.CommentDto;
 import project.goodreads.dto.CommentWithIdDto;
+import project.goodreads.models.Comment;
 import project.goodreads.repositories.CommentRepository;
 import project.goodreads.services.ReviewService;
 
@@ -26,6 +30,32 @@ public class CommentRestController {
 
     private final CommentRepository commentRepository;
     private final ReviewService reviewService;
+
+    @GetMapping
+    public List<CommentWithIdDto> getAll() {
+
+        List<Comment> comments = commentRepository.findAll();
+        List<CommentWithIdDto> commentsDtos = comments.stream().map(c -> {
+
+            var cDto = new CommentWithIdDto();
+            BeanUtils.copyProperties(c, cDto);
+
+            return cDto;
+        }).toList();
+
+        return commentsDtos;
+    }
+
+    @GetMapping("/{id}")
+    public CommentWithIdDto getOne(@PathVariable Long id) {
+
+        var comment = reviewService.getComment(id);
+
+        var commentDto = new CommentWithIdDto();
+        BeanUtils.copyProperties(comment, commentDto);
+
+        return commentDto;
+    }
 
     @PostMapping
     public ResponseEntity<CommentWithIdDto> createComment(@Valid @RequestBody CommentDto commentDto) {
