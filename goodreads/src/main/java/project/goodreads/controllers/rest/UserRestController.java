@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import project.goodreads.dto.CreateBookshelfDto;
+import project.goodreads.dto.BookshelfWithIdDto;
 import project.goodreads.dto.UserDto;
 import project.goodreads.dto.UserWithIdDto;
 import project.goodreads.models.User;
 import project.goodreads.repositories.UserRepository;
+import project.goodreads.services.BookshelfService;
 import project.goodreads.services.UserService;
 
 import java.util.List;
@@ -30,6 +33,7 @@ public class UserRestController {
 
     private final UserService userService;
     private final UserRepository userRepository;
+    private final BookshelfService bookshelfService;
 
     @GetMapping
     public List<UserWithIdDto> getAll() {
@@ -64,6 +68,18 @@ public class UserRestController {
 
         var response = new UserWithIdDto();
         BeanUtils.copyProperties(user, response);
+
+        return ResponseEntity.status(201).body(response);
+    }
+
+    @PostMapping("/{id}/bookshelves")
+    public ResponseEntity<BookshelfWithIdDto> createBookshelfForUser(@PathVariable Long id,
+            @RequestBody CreateBookshelfDto bookshelfDto) {
+
+        var bookshelf = bookshelfService.createBookshelf(bookshelfDto.getName(), id);
+
+        var response = new BookshelfWithIdDto();
+        BeanUtils.copyProperties(bookshelf, response);
 
         return ResponseEntity.status(201).body(response);
     }

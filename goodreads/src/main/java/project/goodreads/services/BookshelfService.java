@@ -21,11 +21,11 @@ public class BookshelfService {
     final BookshelfRepository bookshelfRepository;
     final BookRepository bookRepository;
 
-    public void createBookshelf(String name, Long userId) {
-        createBookshelf(name, userId, false);
+    public Bookshelf createBookshelf(String name, Long userId) {
+        return createBookshelf(name, userId, false);
     }
 
-    public void createBookshelf(String name, Long userId, boolean isHidden) {
+    public Bookshelf createBookshelf(String name, Long userId, boolean isHidden) {
         Bookshelf bookshelf = new Bookshelf();
 
         bookshelf.setName(name);
@@ -33,6 +33,8 @@ public class BookshelfService {
         bookshelf.setHidden(isHidden);
 
         bookshelfRepository.save(bookshelf);
+
+        return bookshelf;
     }
 
     public void addBookToBookshelf(Long bookshelfId, Long bookId) {
