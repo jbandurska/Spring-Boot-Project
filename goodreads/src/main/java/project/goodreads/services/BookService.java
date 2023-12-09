@@ -3,6 +3,7 @@ package project.goodreads.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -31,6 +32,7 @@ public class BookService {
         return book;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteBook(Long bookId) {
 
         deleteRatingsAboutBook(bookId);
