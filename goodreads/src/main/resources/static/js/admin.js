@@ -3,6 +3,7 @@ let update = false;
 const itemForm = document.getElementById("itemForm");
 const itemIdInput = document.getElementById("itemId");
 const formTitle = document.getElementById("formTitle");
+const messageContainer = document.getElementById("message");
 
 itemForm.addEventListener("submit", onSubmit);
 
@@ -21,7 +22,7 @@ async function sendPostRequest(item) {
     alert("Item added");
     window.location.reload();
   } catch (err) {
-    console.error(err);
+    displayMessageToAdmin(err.response.data);
   }
 }
 
@@ -31,7 +32,7 @@ async function sendPutRequest(item) {
     alert("Item updated");
     window.location.reload();
   } catch (err) {
-    console.error(err);
+    displayMessageToAdmin(err.response.data);
   }
 }
 
@@ -41,7 +42,7 @@ async function sendDeleteRequest(itemId) {
     alert("Item deleted");
     window.location.reload();
   } catch (err) {
-    console.error(err);
+    displayMessageToAdmin(err.response.data);
   }
 }
 
@@ -129,4 +130,13 @@ function updateItemForm(itemId) {
 
 function deleteItem(itemId) {
   sendDeleteRequest(itemId);
+}
+
+function displayMessageToAdmin(message) {
+  if (typeof message == "object") {
+    message = JSON.stringify(message, null, 2);
+  }
+
+  console.log(message);
+  messageContainer.innerHTML = message;
 }
