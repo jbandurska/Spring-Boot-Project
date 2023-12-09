@@ -1,5 +1,6 @@
 package project.goodreads.models;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -28,6 +29,6 @@ public class Bookshelf {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "book_bookshelf", joinColumns = @JoinColumn(name = "bookshelf_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
-    private Set<Book> books;
+    private Set<Book> books = new HashSet<>();
 
 }

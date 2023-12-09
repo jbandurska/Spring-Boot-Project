@@ -31,6 +31,7 @@ dependencies {
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 
 	testImplementation 'org.slf4j:slf4j-api:2.0.4'
+	testImplementation 'org.mockito:mockito-core:5.8.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

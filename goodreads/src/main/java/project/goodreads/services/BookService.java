@@ -1,5 +1,8 @@
 package project.goodreads.services;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -48,9 +51,10 @@ public class BookService {
     public void deleteBookFromBookshelves(Long bookId) {
         var book = getBook(bookId);
 
-        for (Bookshelf bookshelf : book.getOnShelf()) {
-            bookshelf.getBooks().remove(book);
-            bookshelfRepository.save(bookshelf);
-        }
+        List<Bookshelf> modifiedBookshelves = book.getOnShelf().stream()
+                .peek(bookshelf -> bookshelf.getBooks().remove(book))
+                .collect(Collectors.toList());
+
+        bookshelfRepository.saveAll(modifiedBookshelves);
     }
 }
