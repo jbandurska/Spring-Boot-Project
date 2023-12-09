@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,7 +25,11 @@ public class Bookshelf {
     private Long id;
 
     private String name;
-    private Long userId;
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     private boolean isHidden;
 
     @ManyToMany(cascade = CascadeType.ALL)

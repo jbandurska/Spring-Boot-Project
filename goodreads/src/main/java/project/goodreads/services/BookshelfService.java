@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import project.goodreads.models.Book;
 import project.goodreads.models.Bookshelf;
+import project.goodreads.models.User;
 import project.goodreads.repositories.BookRepository;
 import project.goodreads.repositories.BookshelfRepository;
 
@@ -21,15 +22,15 @@ public class BookshelfService {
     final BookshelfRepository bookshelfRepository;
     final BookRepository bookRepository;
 
-    public Bookshelf createBookshelf(String name, Long userId) {
-        return createBookshelf(name, userId, false);
+    public Bookshelf createBookshelf(String name, User user) {
+        return createBookshelf(name, user, false);
     }
 
-    public Bookshelf createBookshelf(String name, Long userId, boolean isHidden) {
+    public Bookshelf createBookshelf(String name, User user, boolean isHidden) {
         Bookshelf bookshelf = new Bookshelf();
 
         bookshelf.setName(name);
-        bookshelf.setUserId(userId);
+        bookshelf.setUser(user);
         bookshelf.setHidden(isHidden);
 
         bookshelfRepository.save(bookshelf);

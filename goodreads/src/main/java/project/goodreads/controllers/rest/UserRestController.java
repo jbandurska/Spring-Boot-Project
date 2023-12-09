@@ -64,7 +64,7 @@ public class UserRestController {
     @PostMapping
     public ResponseEntity<UserWithIdDto> createUser(@Valid @RequestBody UserDto userDto) {
 
-        var user = userService.createUser(userDto.getUsername(), userDto.getPassword());
+        var user = userService.createUser(userDto.getUsername(), userDto.getPassword(), userDto.getRole());
 
         var response = new UserWithIdDto();
         BeanUtils.copyProperties(user, response);
@@ -76,7 +76,7 @@ public class UserRestController {
     public ResponseEntity<BookshelfWithIdDto> createBookshelfForUser(@PathVariable Long id,
             @RequestBody CreateBookshelfDto bookshelfDto) {
 
-        var bookshelf = bookshelfService.createBookshelf(bookshelfDto.getName(), id);
+        var bookshelf = bookshelfService.createBookshelf(bookshelfDto.getName(), userService.getUser(id));
 
         var response = new BookshelfWithIdDto();
         BeanUtils.copyProperties(bookshelf, response);

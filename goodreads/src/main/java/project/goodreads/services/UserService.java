@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import project.goodreads.enums.Role;
 import project.goodreads.exceptions.UserAlreadyExistException;
 import project.goodreads.models.User;
+import project.goodreads.repositories.BookshelfRepository;
 import project.goodreads.repositories.UserRepository;
 
 @Service
@@ -19,6 +20,7 @@ public class UserService {
     final private UserRepository userRepository;
     final private PasswordEncoder passwordEncoder;
     final private BookshelfService bookshelfService;
+    final private BookshelfRepository bookshelfRepository;
 
     public User getUser(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
@@ -35,12 +37,12 @@ public class UserService {
         User user = new User();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
-        user.setRole(Role.USER);
+        user.setRole(role);
 
         userRepository.save(user);
 
-        bookshelfService.createBookshelf("read", user.getId(), true);
-        bookshelfService.createBookshelf("to be read", user.getId(), true);
+        bookshelfService.createBookshelf("read", user, true);
+        bookshelfService.createBookshelf("to be read", user, true);
 
         return user;
     }
@@ -76,11 +78,12 @@ public class UserService {
 
     public void deleteUser(User user) {
 
-        userRepository.delete(user);
+        deleteUserById(user.getId());
     }
 
     public void deleteUserById(Long id) {
 
+        bookshelfRepository.deleteAllByUserId(id);
         userRepository.deleteById(id);
     }
 }

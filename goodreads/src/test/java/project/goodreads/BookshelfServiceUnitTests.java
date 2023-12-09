@@ -20,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import jakarta.persistence.EntityNotFoundException;
 import project.goodreads.models.Book;
 import project.goodreads.models.Bookshelf;
+import project.goodreads.models.User;
 import project.goodreads.repositories.BookRepository;
 import project.goodreads.repositories.BookshelfRepository;
 import project.goodreads.services.BookshelfService;
@@ -40,14 +41,14 @@ public class BookshelfServiceUnitTests {
     public void createBookshelf() {
         // Given
         String name = "MyBookshelf";
-        Long userId = 1L;
+        User user = new User();
 
         // When
-        Bookshelf createdBookshelf = bookshelfService.createBookshelf(name, userId);
+        Bookshelf createdBookshelf = bookshelfService.createBookshelf(name, user);
 
         // Then
         assertEquals(name, createdBookshelf.getName());
-        assertEquals(userId, createdBookshelf.getUserId());
+        assertEquals(user, createdBookshelf.getUser());
         assertEquals(false, createdBookshelf.isHidden());
 
         verify(bookshelfRepository).save(any(Bookshelf.class));
@@ -57,14 +58,14 @@ public class BookshelfServiceUnitTests {
     public void createHiddenBookshelf() {
         // Given
         String name = "HiddenBookshelf";
-        Long userId = 2L;
+        User user = new User();
 
         // When
-        Bookshelf createdBookshelf = bookshelfService.createBookshelf(name, userId, true);
+        Bookshelf createdBookshelf = bookshelfService.createBookshelf(name, user, true);
 
         // Then
         assertEquals(name, createdBookshelf.getName());
-        assertEquals(userId, createdBookshelf.getUserId());
+        assertEquals(user, createdBookshelf.getUser());
         assertEquals(true, createdBookshelf.isHidden());
 
         verify(bookshelfRepository).save(any(Bookshelf.class));

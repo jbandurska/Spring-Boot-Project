@@ -47,7 +47,7 @@ public class BookshelfController {
     public String addBookshelf(Authentication authentication, Model model, @RequestParam String name) {
 
         User user = (User) authentication.getPrincipal();
-        bookshelfService.createBookshelf(name, user.getId());
+        bookshelfService.createBookshelf(name, user);
 
         model.addAttribute("bookshelves", bookshelfService.getBookshelves(user.getId()));
 

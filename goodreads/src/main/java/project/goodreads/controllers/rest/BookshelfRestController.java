@@ -34,7 +34,8 @@ public class BookshelfRestController {
         List<Bookshelf> bookshelves = bookshelfRepository.findAll();
 
         List<BookshelfWithIdDto> bookshelfDtos = bookshelves.stream()
-                .map(bookshelf -> new BookshelfWithIdDto(bookshelf.getId(), bookshelf.getName(), bookshelf.getUserId()))
+                .map(bookshelf -> new BookshelfWithIdDto(bookshelf.getId(), bookshelf.getName(),
+                        bookshelf.getUser().getId()))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(bookshelfDtos);
