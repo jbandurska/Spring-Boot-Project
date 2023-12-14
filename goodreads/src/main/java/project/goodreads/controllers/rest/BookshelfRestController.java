@@ -41,6 +41,18 @@ public class BookshelfRestController {
         return ResponseEntity.ok(bookshelfDtos);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<BookshelfWithIdDto> getBookshelf(@PathVariable Long id) {
+
+        bookshelfService.getBookshelfById(id);
+        Bookshelf bookshelf = bookshelfService.getBookshelfById(id);
+
+        BookshelfWithIdDto bookshelfDto = new BookshelfWithIdDto(bookshelf.getId(), bookshelf.getName(),
+                bookshelf.getUser().getId());
+
+        return ResponseEntity.ok(bookshelfDto);
+    }
+
     @PostMapping("/{bookshelfId}/books/{bookId}")
     public ResponseEntity<String> addBookToBookshelf(@PathVariable Long bookshelfId, @PathVariable Long bookId) {
 
